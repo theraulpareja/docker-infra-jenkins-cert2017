@@ -1,33 +1,45 @@
-# jenkins-certificate
+# docker-infra-jenkins-cert2017
 
-### This is the offcial docker image downloaded with (will install the latest)
-docker pull jenkins:2.19.4
+### Description
 
-### The next directory will be dedicated to keep the jenkins home volume
-new_jenkins_volume
+This repo just contains very basic infra docker based to have a minimal lab for jenkins 2017 certificate preparation (that means jenkins LTS 2.19.4).
 
-### Port 50000 is only needed in case you need JNLP
+It will spin up in total 4 docker containers and create an internal network (bridge based to be run on a single docker host)
 
-### This will create the docker container for the jenkins master only
+* Jenkins master 2.19.4 LTS
+* slave1 Ubuntu 16.04 LTS 
+* slave2 Ubuntu 16.04 LTS
+* slave3 Ubuntu 16.04 LTS
+
+To gather the requirements for the certification by Cloudbees please read the next link:
 ```
-docker run -d -p 8080:8080  -p 50000:50000 -v /home/mishkin/Docker/new_jenkins/new_jenkins_volume:/var/jenkins_home jenkins
-```
-### And with memory limit and root user
-```
-docker run -u root -d -p 8080:8080  -p 50000:50000 -m=2147483648 -v /home/mishkin/Docker/new_jenkins/new_jenkins_volume:/var/jenkins_home --name my_new_jenkins jenkins 
-```
-### To run it with docker-compose and in daemon mode 
-```
-COMPOSE_HTTP_TIMEOUT=200 docker-compose up -d --build
-```
-### That image is for the jenkins certified 2017 read the next link for furhter info
 https://www.cloudbees.com/sites/default/files/cje-study-guide-2017.pdf
+```
+And of course refeer to the oficial documentation of Jenkins Docker here:
+```
+https://github.com/jenkinsci/docker/blob/master/README.md
 
-### 3 slaves based on ubuntu 16.04 LTS will be created with ssh enabled and jenkins:jenkins creds
+```
+### Requirements
 
-## How to build up
+* Docker version 1.12.6 or above
+* docker-compose version 1.9.0 or above
+* create a directory to host the jenkins master volume, call it new_jenkins_volume or edit docker-compose.yml file
+
+Please notice that exposure of port 50000 is only needed in case you need JNLP, in case you want to add a windows node as slave via JNLP.
+
+### How to build and run the containers
+
+Run it with docker-compose and in daemon mode forcing build at least the very first time
 ```
 COMPOSE_HTTP_TIMEOUT=200 docker-compose up -d --build
 ```
 
+### How to stop and remove the cotnainers
+```
+docker-compose down
+```
 
+### How to configure the slaves in the jenkins master
+
+While not being automated yet, pelase check the ips of each slave in the docker-compose.yml file, configure them as ssh agents and the use the credentials jenkins:jenkins
