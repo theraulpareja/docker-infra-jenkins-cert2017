@@ -1,0 +1,50 @@
+version: '2'  
+
+services:
+
+  #Jenkins master setup
+  master_cert2017:
+    image: jenkins:2.19.4
+    ports:
+     - "8080:8080"
+     - "50000:50000"
+    volumes:
+     - /home/mishkin/Docker/new_jenkins/new_jenkins_volume:/var/jenkins_home
+    networks:
+      cinet:
+        ipv4_address: 192.168.250.2
+
+  #Jenkins slaves nodes, no volume  presistance of data is needed  
+  ubuntu_slave1:
+    build: slaveA/
+    ports:
+     - "8081:22"
+    networks:
+      cinet:
+        ipv4_address: 192.168.250.3
+
+  ubuntu_slave2:
+    build: slaveA/
+    ports:
+     - "8082:22"
+    networks:
+      cinet:
+        ipv4_address: 192.168.250.4
+
+  ubuntu_slave3:
+    build: slaveA/
+    ports:
+     - "8083:22"
+    networks:
+       cinet:
+        ipv4_address: 192.168.250.5
+
+#Internal network to comunicate CI ecosystem
+networks:
+  cinet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.250.0/24
+

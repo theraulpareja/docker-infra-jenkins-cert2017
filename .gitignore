@@ -1,0 +1,8 @@
+#don't track volumes
+new_jenkins_volume/
+
+#Don't track neither
+.bash_history
+.java/
+
+
