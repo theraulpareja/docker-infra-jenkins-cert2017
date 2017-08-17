@@ -4,7 +4,7 @@ services:
 
   #Jenkins master setup
   master_cert2017:
-    image: jenkins:2.19.4
+    build: jenkinsM/
     ports:
      - "8080:8080"
      - "50000:50000"
