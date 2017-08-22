@@ -48,6 +48,14 @@ For the certification jenkins lab, is recommended to just install the suggested 
 docker-compose down
 ```
 
-### How to configure the slaves in the jenkins master
+### How to add the slave nodes into the jenkins master
 
-While not being automated yet, pelase check the ips of each slave in the docker-compose.yml file, configure them as ssh agents and the use the credentials jenkins:jenkins
+While not being automated yet, pelase notice the steps needed to add the 3 ubuntu slaves created by the docker-compose to the jenkins master once initially configured:
+
+* As an admin user, go to the url localhost:8080/computer, select 'New Node'
+* Provide a node name, e.g. linux-slave1 and select 'permanent agent'
+* Fill the data requested, name, description, executors until you rech launch method
+* Select Launch method to 'Launch slave agent via SSH'
+* Provide the ip in the host field acording to the ips of the docker-compose.yaml file, the original ones are 192.168.250.3 for unbut_salve1, 192.168.250.4 for unbut_salve2 and 192.168.250.5 for unbut_salve3
+* You will need to create the jenkins credentials by clicking Add -> Jenkins -> ensure Kind Userame with password and fill Username with jenkins and Password with jenkins and finally Add
+* IMPORTANT, select Host Key Verification Strategy to 'Non verifying Verfication Strategy'  you will need to add(create) credentials the first time with user jenkins and password jenkins,
