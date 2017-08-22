@@ -28,7 +28,7 @@ https://github.com/jenkinsci/docker/blob/master/README.md
 
 Please notice that exposure of port 50000 is only needed in case you need JNLP, in case you want to add a windows node as slave via JNLP.
 
-### How to build and run the containers
+### How to build and run the containers + basic config of jenkins
 
 Run it with docker-compose and in daemon mode forcing build at least the very first time
 ```
@@ -41,7 +41,7 @@ The very first time you will need to provide the "initialAdminPassword" from /va
 prompt$ cd jenkins_master_volume/
 prompt$ cat secrets/initialAdminPassword 
 ```
-
+For the certification jenkins lab, is recommended to just install the suggested plugins
 
 ### How to stop and remove the cotnainers
 ```
