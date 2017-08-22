@@ -9,7 +9,7 @@ services:
      - "8080:8080"
      - "50000:50000"
     volumes:
-     - /home/mishkin/Docker/new_jenkins/new_jenkins_volume:/var/jenkins_home
+     - ./jenkins_master_volume:/var/jenkins_home
     networks:
       cinet:
         ipv4_address: 192.168.250.2
